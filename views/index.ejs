@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EJS Template with Button</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Job Listings</h1>
+        <button id="fetchButton" class="btn btn-primary">Fetch Job Data</button>
+
+        <div class="row mt-4" id="jobList"></div>
+    </div>
+
+    <!-- Include Bootstrap JS and your custom script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('fetchButton').addEventListener('click', async () => {
+            const response = await fetch('/fetch-jobs');
+            if (response.ok) {
+                const data = await response.json();
+                const jobListContainer = document.getElementById('jobList');
+                
+                data.forEach(job => {
+                    const jobCard = document.createElement('div');
+                    jobCard.classList.add('col-md-4', 'mb-4');
+                    jobCard.innerHTML = `
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Job title: ${job.title}</h5>
+                                <p class="card-text">Company: ${job.companyName}</p>
+                                <p class="card-text">Remote / Not: ${job.remote ? 'Job is remote' : 'Job is on location'}</p>
+                                <p class="card-text">Job level: ${job.jobType ? `${job.jobType}` : ` `}</p>
+                                <p class="card-text"><a href="${job.jobUrl}" target="_blank">Link to apply</a></p>
+                            </div>
+                        </div>
+                    `;
+                    jobListContainer.appendChild(jobCard);
+                });
+            } else {
+                console.error('Failed to fetch job data');
+            }
+        });
+    </script>
+</body>
+</html>
