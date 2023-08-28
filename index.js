@@ -1,5 +1,6 @@
 import express from 'express';
-import axios from 'axios'
+import axios from 'axios';
+import ejs from 'ejs';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -32,5 +33,5 @@ app.get("/fetch-jobs", async (req, res) => {
 
 
 app.listen(PORT, () => {
-    console.log(`server runing at ${PORT}`)
+    console.log(`server running at ${PORT}`)
 })
