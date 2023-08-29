@@ -33,5 +33,5 @@ app.get("/fetch-jobs", async (req, res) => {
 
 
 app.listen(process.env.PORT || port, () => {
-    console.log(`server running at ${PORT}`)
+    console.log(`server running at ${port}`)
 })
