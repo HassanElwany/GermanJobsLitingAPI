@@ -3,7 +3,7 @@ import axios from 'axios';
 import ejs from 'ejs';
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const port = 3000;
 
 
 app.set('view engine', 'ejs');
@@ -32,6 +32,6 @@ app.get("/fetch-jobs", async (req, res) => {
         
 
 
-app.listen(PORT, () => {
+app.listen(process.env.PORT || port, () => {
     console.log(`server running at ${PORT}`)
 })
